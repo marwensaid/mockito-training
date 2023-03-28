@@ -13,10 +13,10 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import static org.easymock.EasyMock.expect;
 
 @ExtendWith(EasyMockExtension.class)
-public class EasyMockTestsWithEasyMockSupport extends EasyMockSupport {
+class EasyMockTestsWithEasyMockSupport extends EasyMockSupport {
 
   @Test
-  public void testSaveRecord() {
+  void testSaveRecord() {
     //Prepare mocks
     RecordDao mockDao = EasyMock.mock(RecordDao.class);
     SequenceGenerator mockGenerator = EasyMock.mock(SequenceGenerator.class);

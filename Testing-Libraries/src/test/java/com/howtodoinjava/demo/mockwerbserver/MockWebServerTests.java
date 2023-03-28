@@ -4,6 +4,7 @@ import okhttp3.mockwebserver.Dispatcher;
 import okhttp3.mockwebserver.MockResponse;
 import okhttp3.mockwebserver.MockWebServer;
 import okhttp3.mockwebserver.RecordedRequest;
+import org.jetbrains.annotations.NotNull;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
@@ -23,33 +24,28 @@ public class MockWebServerTests {
   public static MockWebServer server;
   final static Dispatcher dispatcher = new Dispatcher() {
 
+    @NotNull
     @Override
-    public MockResponse dispatch(RecordedRequest request) throws InterruptedException {
+    public MockResponse dispatch(RecordedRequest request) {
 
-      switch (request.getPath()) {
-        case "/api-url-one":
-          return new MockResponse()
-              .setResponseCode(201);
-
-        case "/api-url-two":
-          return new MockResponse()
-              .setHeader("x-header-name", "header-value")
-              .setResponseCode(200)
-              .setBody("<response />");
-
-        case "/api-url-three":
-          return new MockResponse()
-              .setResponseCode(500)
-              .setBodyDelay(5000, TimeUnit.MILLISECONDS)
-              .setChunkedBody("<error-response />", 5);
-
-        case "/api-url-four":
-          return new MockResponse()
-              .setResponseCode(200)
-              .setBody("{\"data\":\"\"}")
-              .throttleBody(1024, 5, TimeUnit.SECONDS);
-      }
-      return new MockResponse().setResponseCode(404);
+      assert request.getPath() != null;
+      return switch (request.getPath()) {
+        case "/api-url-one" -> new MockResponse()
+                .setResponseCode(201);
+        case "/api-url-two" -> new MockResponse()
+                .setHeader("x-header-name", "header-value")
+                .setResponseCode(200)
+                .setBody("<response />");
+        case "/api-url-three" -> new MockResponse()
+                .setResponseCode(500)
+                .setBodyDelay(5000, TimeUnit.MILLISECONDS)
+                .setChunkedBody("<error-response />", 5);
+        case "/api-url-four" -> new MockResponse()
+                .setResponseCode(200)
+                .setBody("{\"data\":\"\"}")
+                .throttleBody(1024, 5, TimeUnit.SECONDS);
+        default -> new MockResponse().setResponseCode(404);
+      };
     }
   };
 

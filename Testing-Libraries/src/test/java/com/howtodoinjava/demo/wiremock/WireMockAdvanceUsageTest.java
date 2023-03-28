@@ -11,7 +11,7 @@ import java.util.UUID;
 import static com.github.tomakehurst.wiremock.client.WireMock.*;
 
 @WireMockTest
-public class WireMockAdvanceUsageTest {
+class WireMockAdvanceUsageTest {
 
   @Test
   void requestMatching() {

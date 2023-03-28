@@ -7,7 +7,7 @@ import static org.testng.Assert.assertEquals;
 public class HelloTestNg {
     @Test
     public void testAddOperation_withValidArgs_thenCorrect() {
-        assertEquals(6, Calculator.add(1,2,3));
+        assertEquals(Calculator.add(1, 2, 3), 6);
     }
 }
 

@@ -14,61 +14,61 @@ import static org.mockito.Mockito.when;
 
 
 @SpringBootTest
-public class DoesNotContainValidatorTest {
+class DoesNotContainValidatorTest {
 
   private DoesNotContainValidator validator;
   private ConstraintValidatorContext context;
 
   @BeforeEach
   public void setUp() {
-    validator = new DoesNotContainValidator();
-    context = mock(ConstraintValidatorContext.class);
+    this.validator = new DoesNotContainValidator();
+    this.context = mock(ConstraintValidatorContext.class);
   }
 
   @Test
-  public void testIsValidWithValidValue() {
+  void testIsValidWithValidValue() {
     DoesNotContain doesNotContain = mock(DoesNotContain.class);
     when(doesNotContain.chars()).thenReturn(new String[]{"@", "#"});
-    validator.initialize(doesNotContain);
+    this.validator.initialize(doesNotContain);
 
     String value = "abcde";
-    boolean result = validator.isValid(value, context);
+    boolean result = this.validator.isValid(value, this.context);
 
     assertTrue(result);
   }
 
   @Test
-  public void testIsValidWithInvalidValue() {
+  void testIsValidWithInvalidValue() {
     DoesNotContain doesNotContain = mock(DoesNotContain.class);
     when(doesNotContain.chars()).thenReturn(new String[]{"@", "#"});
-    validator.initialize(doesNotContain);
+    this.validator.initialize(doesNotContain);
 
     String value = "abc@de";
-    boolean result = validator.isValid(value, context);
+    boolean result = this.validator.isValid(value, this.context);
 
     assertFalse(result);
   }
 
   @Test
-  public void testIsValidWithNullValue() {
+  void testIsValidWithNullValue() {
     DoesNotContain doesNotContain = mock(DoesNotContain.class);
     when(doesNotContain.chars()).thenReturn(new String[]{"@", "#"});
-    validator.initialize(doesNotContain);
+    this.validator.initialize(doesNotContain);
 
     String value = null;
-    boolean result = validator.isValid(value, context);
+    boolean result = this.validator.isValid(null, this.context);
 
     assertTrue(result);
   }
 
   @Test
-  public void testIsValidWithEmptyValue() {
+  void testIsValidWithEmptyValue() {
     DoesNotContain doesNotContain = mock(DoesNotContain.class);
     when(doesNotContain.chars()).thenReturn(new String[]{"@", "#"});
-    validator.initialize(doesNotContain);
+    this.validator.initialize(doesNotContain);
 
     String value = "";
-    boolean result = validator.isValid(value, context);
+    boolean result = this.validator.isValid(value, this.context);
 
     assertTrue(result);
   }

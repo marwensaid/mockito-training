@@ -15,10 +15,10 @@ public class RecordService {
   public Record saveRecord(Record record) {
 
     log.info("Saving Record in RecordService");
-    record.setId(generator.getNext());
-    dao.saveRecord(record);
+    record.setId(this.generator.getNext());
+    this.dao.saveRecord(record);
 
-    NotificationService.getInstance().sendNotification("New Record Added");
+    NotificationService.sendNotification("New Record Added");
     return record;
   }
 }

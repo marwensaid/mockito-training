@@ -13,7 +13,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
 @TestPropertySource("classpath:application-test.properties")
-public class AppTest {
+class AppTest {
 
   @Autowired
   DatasourceProps datasourceProps;
@@ -22,33 +22,33 @@ public class AppTest {
   AppProperties props;
 
   @Test
-  public void contextLoads() {
+  void contextLoads() {
     assertTrue(true);
   }
 
   @Test
-  public void testPropertiesList() {
+  void testPropertiesList() {
     List<UserRole> list = List.of(
         new UserRole(1, "Subscriber"),
         new UserRole(2, "Editor"),
         new UserRole(3, "Admin"));
 
-    String url = datasourceProps.getUrl();
+    String url = this.datasourceProps.getUrl();
 
     assertEquals("jdbc:h2:file:C:/temp/test", url);
   }
 
   @Test
-  public void testProperties() {
-    String applicationName = props.getAppName();
-    String datasourceUrl = props.getDatasourceUrl();
+  void testProperties() {
+    String applicationName = this.props.getAppName();
+    String datasourceUrl = this.props.getDatasourceUrl();
 
     assertEquals("Test App", applicationName);
     assertEquals("jdbc:h2:file:C:/temp/test", datasourceUrl);
 
-    assertThat(Arrays.asList("local", "dev", "test", "prod"))
-        .hasSameElementsAs(props.getEnvironmentsList());
+    assertThat(this.props.getEnvironmentsList())
+        .hasSameElementsAs(Arrays.asList("local", "dev", "test", "prod"));
     assertArrayEquals(new String[]{"local", "dev", "test", "prod"},
-        props.getEnvironments());
+            this.props.getEnvironments());
   }
 }

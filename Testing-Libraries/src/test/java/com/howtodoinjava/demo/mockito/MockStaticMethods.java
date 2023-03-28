@@ -9,11 +9,11 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.Mockito.mockStatic;
 
-public class MockStaticMethods {
+class MockStaticMethods {
   @Test
-  public void testGetVal() {
+  void testGetVal() {
     assertEquals("foo", ClassWithStaticMethod.getVal());
-    try (MockedStatic mockStatic = mockStatic(ClassWithStaticMethod.class)) {
+    try (MockedStatic<ClassWithStaticMethod> mockStatic = mockStatic(ClassWithStaticMethod.class)) {
       mockStatic.when(ClassWithStaticMethod::getVal).thenReturn("bar");
       assertEquals("bar", ClassWithStaticMethod.getVal());
       mockStatic.verify(ClassWithStaticMethod::getVal);
@@ -22,7 +22,7 @@ public class MockStaticMethods {
   }
 
   @Test
-  public void testAdd() {
+  void testAdd() {
     assertEquals(3, ClassWithStaticMethod.add(1, 2));
     try (MockedStatic mockStatic = mockStatic(ClassWithStaticMethod.class)) {
       mockStatic.when(() -> ClassWithStaticMethod.add(anyInt(), anyInt())).thenReturn(10);

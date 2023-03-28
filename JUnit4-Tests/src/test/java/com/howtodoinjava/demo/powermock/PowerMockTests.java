@@ -27,7 +27,7 @@ public class PowerMockTests {
     String message = Service.staticMessage();
 
     //Assert the stub response
-    Assert.assertEquals(message, "New Message from Mock!");
+    Assert.assertEquals("New Message from Mock!", message);
 
     //Verify static method invocation
     PowerMockito.verifyStatic(Service.class, times(1));
@@ -50,7 +50,7 @@ public class PowerMockTests {
     String message = serviceMock.finalMessage();
 
     //Assert the stub response
-    Assert.assertEquals(message, "New Message from Mock!");
+    Assert.assertEquals("New Message from Mock!", message);
 
     //Verify final method invocation
     Mockito.verify(serviceMock).finalMessage();
@@ -62,7 +62,7 @@ public class PowerMockTests {
     PowerMockito.doReturn("New Message from Mock!").when(mock,
         "privateMessage");
     String privateMessage = Whitebox.invokeMethod(mock, "privateMessage");
-    Assert.assertEquals(privateMessage, "New Message from Mock!");
+    Assert.assertEquals("New Message from Mock!", privateMessage);
 
     PowerMockito.verifyPrivate(mock, times(1)).invoke("privateMessage");
   }

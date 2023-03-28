@@ -8,7 +8,6 @@ public class ParameterTest {
    * Following method takes one parameter as input. Value of the
    * said parameter is defined at suite level.
    */
-  @Parameters({"suite-param"})
   @Test
   public void prameterTestOne(String param) {
     System.out.println("Test one suite param is: " + param);

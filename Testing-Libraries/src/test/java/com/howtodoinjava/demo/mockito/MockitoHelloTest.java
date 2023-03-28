@@ -12,7 +12,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
-public class MockitoHelloTest {
+class MockitoHelloTest {
 
   @Mock
   RecordDao mockDao;
@@ -27,18 +27,18 @@ public class MockitoHelloTest {
   RecordService service;
 
   @Test
-  public void testSaveRecord() {
+  void testSaveRecord() {
 
     Record record = new Record();
     record.setName("Test Record");
 
-    when(mockGenerator.getNext()).thenReturn(100L);
-    when(mockDao.saveRecord(record)).thenReturn(record);
+    when(this.mockGenerator.getNext()).thenReturn(100L);
+    when(this.mockDao.saveRecord(record)).thenReturn(record);
 
-    Record savedRecord = service.saveRecord(record);
+    Record savedRecord = this.service.saveRecord(record);
 
-    verify(mockGenerator, times(1)).getNext();
-    verify(mockDao, times(1)).saveRecord(any(Record.class));
+    verify(this.mockGenerator, times(1)).getNext();
+    verify(this.mockDao, times(1)).saveRecord(any(Record.class));
 
     assertEquals("Test Record", savedRecord.getName());
     assertEquals(100L, savedRecord.getId());

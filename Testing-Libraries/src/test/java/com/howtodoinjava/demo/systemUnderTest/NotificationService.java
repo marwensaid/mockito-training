@@ -11,8 +11,7 @@ public class NotificationService {
     return instance;
   }
 
-  public static boolean sendNotification(String message) {
+  public static void sendNotification(String message) {
     log.info("Sending notification : " + message);
-    return true;
   }
 }

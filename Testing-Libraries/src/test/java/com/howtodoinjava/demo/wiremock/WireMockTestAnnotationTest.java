@@ -9,7 +9,7 @@ import static com.github.tomakehurst.wiremock.client.WireMock.*;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @WireMockTest
-public class WireMockTestAnnotationTest {
+class WireMockTestAnnotationTest {
 
   @Test
   void simpleStubTesting(WireMockRuntimeInfo wmRuntimeInfo) {

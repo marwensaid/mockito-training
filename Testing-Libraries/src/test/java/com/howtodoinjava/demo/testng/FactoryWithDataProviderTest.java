@@ -5,7 +5,7 @@ import org.testng.annotations.Factory;
 import org.testng.annotations.Test;
 
 public class FactoryWithDataProviderTest {
-  private int param;
+  private final int param;
 
   @Factory(dataProvider = "dataMethod")
   public FactoryWithDataProviderTest(int param) {
@@ -19,13 +19,13 @@ public class FactoryWithDataProviderTest {
 
   @Test
   public void testMethodOne() {
-    int opValue = param + 1;
+    int opValue = this.param + 1;
     System.out.println("Test method one output: " + opValue);
   }
 
   @Test
   public void testMethodTwo() {
-    int opValue = param + 2;
+    int opValue = this.param + 2;
     System.out.println("Test method two output: " + opValue);
   }
 }

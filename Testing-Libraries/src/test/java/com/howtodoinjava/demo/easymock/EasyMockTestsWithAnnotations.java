@@ -23,7 +23,7 @@ public class EasyMockTestsWithAnnotations {
   SequenceGenerator mockGenerator;
 
   @TestSubject
-  RecordService service = new RecordService(mockGenerator, mockDao);
+  RecordService service = new RecordService(this.mockGenerator, this.mockDao);
 
   @Test
   public void testSaveRecord() {
@@ -31,22 +31,22 @@ public class EasyMockTestsWithAnnotations {
     record.setName("Test Record");
 
     //Set expectations
-    expect(mockGenerator.getNext()).andReturn(100L);
-    expect(mockDao.saveRecord(EasyMock.anyObject(Record.class))).andReturn(record);
+    expect(this.mockGenerator.getNext()).andReturn(100L);
+    expect(this.mockDao.saveRecord(EasyMock.anyObject(Record.class))).andReturn(record);
 
     //Replay
-    replay(mockGenerator);
-    replay(mockDao);
+    replay(this.mockGenerator);
+    replay(this.mockDao);
 
     //Test and assertions
-    RecordService service = new RecordService(mockGenerator, mockDao);
+    RecordService service = new RecordService(this.mockGenerator, this.mockDao);
     Record savedRecord = service.saveRecord(record);
 
     Assertions.assertEquals("Test Record", savedRecord.getName());
-    Assertions.assertEquals(savedRecord.getId(), 100L);
+    Assertions.assertEquals(100L, savedRecord.getId());
 
     //Verify
-    verify(mockGenerator);
-    verify(mockDao);
+    verify(this.mockGenerator);
+    verify(this.mockDao);
   }
 }

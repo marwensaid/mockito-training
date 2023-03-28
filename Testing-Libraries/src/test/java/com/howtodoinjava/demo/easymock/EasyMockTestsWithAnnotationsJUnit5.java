@@ -15,7 +15,7 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import static org.easymock.EasyMock.*;
 
 @ExtendWith(EasyMockExtension.class)
-public class EasyMockTestsWithAnnotationsJUnit5 {
+class EasyMockTestsWithAnnotationsJUnit5 {
   @Mock
   RecordDao mockDao;
 
@@ -23,30 +23,30 @@ public class EasyMockTestsWithAnnotationsJUnit5 {
   SequenceGenerator mockGenerator;
 
   @TestSubject
-  RecordService service = new RecordService(mockGenerator, mockDao);
+  RecordService service = new RecordService(this.mockGenerator, this.mockDao);
 
   @Test
-  public void testSaveRecord() {
+  void testSaveRecord() {
     Record record = new Record();
     record.setName("Test Record");
 
     //Set expectations
-    expect(mockGenerator.getNext()).andReturn(100L);
-    expect(mockDao.saveRecord(EasyMock.anyObject(Record.class))).andReturn(record);
+    expect(this.mockGenerator.getNext()).andReturn(100L);
+    expect(this.mockDao.saveRecord(EasyMock.anyObject(Record.class))).andReturn(record);
 
     //Replay
-    replay(mockGenerator);
-    replay(mockDao);
+    replay(this.mockGenerator);
+    replay(this.mockDao);
 
     //Test and assertions
-    RecordService service = new RecordService(mockGenerator, mockDao);
+    RecordService service = new RecordService(this.mockGenerator, this.mockDao);
     Record savedRecord = service.saveRecord(record);
 
     Assertions.assertEquals("Test Record", savedRecord.getName());
-    Assertions.assertEquals(savedRecord.getId(), 100L);
+    Assertions.assertEquals(100L, savedRecord.getId());
 
     //Verify
-    verify(mockGenerator);
-    verify(mockDao);
+    verify(this.mockGenerator);
+    verify(this.mockDao);
   }
 }
